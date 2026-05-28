@@ -1,0 +1,230 @@
+/* ─── Fonts ─────────────────────────────────────────────────── */
+@import '@fontsource/geist/400.css';
+@import '@fontsource/geist/500.css';
+@import '@fontsource/geist/600.css';
+@import '@fontsource/geist/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ───────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-on-surface font-sans;
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    @apply bg-primary/30 text-on-primary-container;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-surface-container-low;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-outline-variant rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-outline;
+  }
+}
+
+/* ─── Components ─────────────────────────────────────────────── */
+@layer components {
+
+  /* Glass panel — frosted-glass card surface */
+  .glass-panel {
+    @apply rounded-2xl border border-outline-variant/40;
+    background: color-mix(in srgb, theme(colors.surface-container) 70%, transparent);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  }
+
+  /* Elevated variant with stronger blur */
+  .glass-panel-elevated {
+    @apply rounded-2xl border border-outline-variant/60;
+    background: color-mix(in srgb, theme(colors.surface-container-high) 75%, transparent);
+    backdrop-filter: blur(32px) saturate(1.6);
+    -webkit-backdrop-filter: blur(32px) saturate(1.6);
+  }
+
+  /* Subtle inset glass (for nested cards) */
+  .glass-panel-inset {
+    @apply rounded-xl border border-outline-variant/20;
+    background: color-mix(in srgb, theme(colors.surface-container-low) 60%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Glass panel — active / selected state */
+  .glass-panel-active {
+    @apply rounded-2xl border border-primary/50;
+    background: color-mix(in srgb, theme(colors.primary-container) 14%, theme(colors.surface-container));
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, theme(colors.primary) 18%, transparent),
+      inset 0 1px 0 color-mix(in srgb, theme(colors.primary) 10%, transparent);
+  }
+
+  /* Primary glow pill — badge / chip */
+  .glow-primary {
+    box-shadow: 0 0 16px 2px color-mix(in srgb, theme(colors.primary) 30%, transparent);
+  }
+
+  /* Interactive button base */
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2
+           font-semibold text-sm
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60
+           active:scale-95 disabled:pointer-events-none disabled:opacity-40
+           transition-all duration-300;
+  }
+
+  .btn-primary {
+    @apply btn-base bg-primary-container text-on-primary-container;
+  }
+
+  /* Primary button with violet glow — regra obrigatória para CTAs */
+  .btn-primary-glow {
+    @apply btn-base bg-primary-container text-on-primary-container;
+    box-shadow:
+      0 0 20px 3px color-mix(in srgb, theme(colors.primary) 32%, transparent),
+      0 4px 14px color-mix(in srgb, theme(colors.primary-container) 55%, transparent);
+    transition: box-shadow 0.3s ease, filter 0.3s ease, transform 0.15s ease;
+  }
+  .btn-primary-glow:hover {
+    filter: brightness(1.12);
+    box-shadow:
+      0 0 32px 6px color-mix(in srgb, theme(colors.primary) 46%, transparent),
+      0 6px 20px color-mix(in srgb, theme(colors.primary-container) 65%, transparent);
+  }
+  .btn-primary-glow:active {
+    transform: scale(0.95);
+  }
+
+  .btn-secondary {
+    @apply btn-base bg-surface-container-high text-on-surface
+           hover:bg-surface-bright transition-colors duration-300;
+  }
+
+  .btn-ghost {
+    @apply btn-base bg-transparent text-on-surface-variant
+           hover:bg-surface-container-high hover:text-on-surface
+           transition-colors duration-300;
+  }
+
+  /* Input field */
+  .input-base {
+    @apply w-full rounded-xl border border-outline-variant bg-surface-container-low
+           px-4 py-2.5 text-sm text-on-surface placeholder:text-on-surface-variant/50
+           outline-none transition-colors duration-150
+           focus:border-primary focus:ring-1 focus:ring-primary/30
+           disabled:opacity-40;
+  }
+
+  /* Shimmer skeleton loader */
+  .skeleton {
+    @apply animate-shimmer rounded-lg bg-surface-container-high;
+    background-size: 200% 100%;
+    background-image: linear-gradient(
+      90deg,
+      theme(colors.surface-container-high) 25%,
+      theme(colors.surface-bright) 50%,
+      theme(colors.surface-container-high) 75%
+    );
+  }
+
+  /* Divider */
+  .divider {
+    @apply h-px w-full bg-outline-variant/40;
+  }
+
+  .range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    border: 2px solid theme(colors.on-primary-container);
+    background: linear-gradient(
+      135deg,
+      theme(colors.primary) 0%,
+      theme(colors.secondary) 100%
+    );
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, theme(colors.primary) 12%, transparent),
+      0 0 18px color-mix(in srgb, theme(colors.secondary) 35%, transparent);
+  }
+
+  .range-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border: 2px solid theme(colors.on-primary-container);
+    border-radius: 9999px;
+    background: linear-gradient(
+      135deg,
+      theme(colors.primary) 0%,
+      theme(colors.secondary) 100%
+    );
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, theme(colors.primary) 12%, transparent),
+      0 0 18px color-mix(in srgb, theme(colors.secondary) 35%, transparent);
+  }
+}
+
+/* ─── Utilities ──────────────────────────────────────────────── */
+@layer utilities {
+
+  /* Stagger animation delays for list items */
+  .stagger-1  { animation-delay: 50ms;  }
+  .stagger-2  { animation-delay: 100ms; }
+  .stagger-3  { animation-delay: 150ms; }
+  .stagger-4  { animation-delay: 200ms; }
+  .stagger-5  { animation-delay: 250ms; }
+
+  /* Gradient text */
+  .gradient-text-primary {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      theme(colors.primary) 0%,
+      theme(colors.secondary) 100%
+    );
+  }
+
+  .gradient-text-tertiary {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      theme(colors.tertiary) 0%,
+      theme(colors.secondary) 100%
+    );
+  }
+
+  /* Noise texture overlay (decorative) */
+  .noise::after {
+    content: '';
+    @apply absolute inset-0 rounded-[inherit] pointer-events-none opacity-[0.03];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+  }
+}

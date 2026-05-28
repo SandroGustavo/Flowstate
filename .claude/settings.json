@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -v --max-time 10 https://registry.npmmirror.com/vite/latest)",
+      "Bash(npm run *)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
