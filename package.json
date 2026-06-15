@@ -1,0 +1,8 @@
+{
+  "name": "flowstate-repo",
+  "private": true,
+  "scripts": {
+    "install:app": "npm install --prefix flowstate",
+    "build": "npm run build --prefix flowstate"
+  }
+}
