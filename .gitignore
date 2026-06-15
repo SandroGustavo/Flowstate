@@ -1,0 +1,4 @@
+.claude
+dist
+flowstate/node_modules
+flowstate/package-lock.json
